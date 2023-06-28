@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .question-container {
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    p.question-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result-container {
+      display: none;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #result-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #result-container p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz Application</h1>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="result-container"></div>
+  </div>
+
+  <script>
+    const quizData = {
+"questions": [
+{
+"text": "Яку природу ти маєш?",
+"answers": [
+{
+"text": "Сміливу",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Тиху",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Жваву",
+"points_contribution": [{"result_id": 3, "points": 2}, {"result_id": 2, "points": 1}]
+},
+{
+"text": "Задумливу",
+"points_contribution": [{"result_id": 4, "points": 2}, {"result_id": 1, "points": 1}]
+}
+]
+},
+{
+"text": "Які здібності тобі найбільше підходять?",
+"answers": [
+{
+"text": "Вогненні",
+"points_contribution": [{"result_id": 1, "points": 3}, {"result_id": 3, "points": 2}]
+},
+{
+"text": "Водні",
+"points_contribution": [{"result_id": 2, "points": 3}, {"result_id": 4, "points": 2}]
+},
+{
+"text": "Електричні",
+"points_contribution": [{"result_id": 3, "points": 3}, {"result_id": 1, "points": 2}]
+},
+{
+"text": "Трав'яні",
+"points_contribution": [{"result_id": 4, "points": 3}, {"result_id": 2, "points": 2}]
+}
+]
+},
+{
+"text": "Як ти проводиш свій вільний час?",
+"answers": [
+{
+"text": "Тренуюся і розвиваюся",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Вивчаю нові речі",
+"points_contribution": [{"result_id": 3, "points": 3}, {"result_id": 2, "points": 2}]
+},
+{
+"text": "Граю в командних іграх",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Нахиляюся до спокійного самотнього часу",
+"points_contribution": [{"result_id": 4, "points": 3}, {"result_id": 1, "points": 2}]
+}
+]
+},
+{
+"text": "Як ти виступаєш у битвах?",
+"answers": [
+{
+"text": "Агресивно та сміливо",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Розумно та стратегічно",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Швидко та майстерно",
+"points_contribution": [{"result_id": 3, "points": 2}, {"result_id": 2, "points": 1}]
+},
+{
+"text": "Обережно та пильно",
+"points_contribution": [{"result_id": 4, "points": 2}, {"result_id": 1, "points": 1}]
+}
+]
+}
+],
+"results": [
+{
+"result_id": 1,
+"result_name": "Чаризард",
+"description": "Ти - Чаризард, вогненний покемон. Ти маєш сміливу природу і володієш потужними вогненними здібностями. Твоя вольова сила допомагає тобі в битвах і ти завжди готовий захищати своїх друзів."
+},
+{
+"result_id": 2,
+"result_name": "Бластойз",
+"description": "Ти - Бластойз, водний покемон. Ти маєш тиху природу і володієш потужними водними здібностями. Твоя мудрість і розум дозволяють тобі розв'язувати складні ситуації і допомагати своїй команді."
+},
+{
+"result_id": 3,
+"result_name": "Пікачу",
+"description": "Ти - Пікачу, електричний покемон. Ти маєш жваву природу і володієш електричними здібностями. Твоя енергія і швидкість дозволяють тобі блискавично реагувати в битвах і приносити перемогу своїй команді."
+},
+{
+"result_id": 4,
+"result_name": "Бульбазавр",
+"description": "Ти - Бульбазавр, трав'яний покемон. Ти маєш задумливу природу і володієш потужними трав'яними здібностями. Ти цінуєш спокій і самотність, але завжди готовий вийти на допомогу своїм друзям."
+}
+]
+};
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionContainer = document.getElementById("question-container");
+    const resultContainer = document.getElementById("result-container");
+
+    let currentQuestionIndex = 0;
+    let points = {};
+
+    function showQuestion() {
+      quizContainer.style.display = "flex";
+      const question = quizData.questions[currentQuestionIndex];
+
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question-container");
+      questionElement.innerHTML = `
+        <p class="question-text">${question.text}</p>
+      `;
+
+      question.answers.forEach((answer, answerIndex) => {
+        const answerElement = document.createElement("button");
+        answerElement.classList.add("answer");
+        answerElement.innerText = answer.text;
+        answerElement.addEventListener("click", () => {
+          processAnswer(answerIndex);
+        });
+
+        questionElement.appendChild(answerElement);
+      });
+
+
+      questionContainer.style.display = "flex";
+      questionContainer.appendChild(questionElement);
+      resultContainer.style.display = "none";
+    }
+
+    function processAnswer(answerIndex) {
+      const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
+
+      answer.points_contribution.forEach(contribution => {
+        if (points[contribution.result_id]) {
+          points[contribution.result_id] += contribution.points;
+        } else {
+          points[contribution.result_id] = contribution.points;
+        }
+      });
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < quizData.questions.length) {
+        questionContainer.innerHTML = "";
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
+      const result = quizData.results.find(result => result.result_id == best_result);
+
+      resultContainer.innerHTML = `
+        <h2>${result.result_name}</h2>
+        <p>${result.description}</p>
+      `;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

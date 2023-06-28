@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .question-container {
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    p.question-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result-container {
+      display: none;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #result-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #result-container p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz Application</h1>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="result-container"></div>
+  </div>
+
+  <script>
+    const quizData = {
+"questions": [
+{
+"text": "Яка ваша розмірковуюча здатність?",
+"answers": [
+{
+"text": "Аналітична і розумова",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Інтуїтивна і спонтанна",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Креативна і художня",
+"points_contribution": [{"result_id": 3, "points": 2}, {"result_id": 2, "points": 1}]
+},
+{
+"text": "Спокійна і мудра",
+"points_contribution": [{"result_id": 4, "points": 2}, {"result_id": 1, "points": 1}]
+}
+]
+},
+{
+"text": "Яку активність ви плануєте для вашої собаки?",
+"answers": [
+{
+"text": "Багато фізичних вправ і тренувань",
+"points_contribution": [{"result_id": 1, "points": 3}, {"result_id": 3, "points": 2}]
+},
+{
+"text": "Спортивні змагання та енергійні активності",
+"points_contribution": [{"result_id": 2, "points": 3}, {"result_id": 4, "points": 2}]
+},
+{
+"text": "Творчі завдання та інтелектуальні гри",
+"points_contribution": [{"result_id": 3, "points": 3}, {"result_id": 1, "points": 2}]
+},
+{
+"text": "Спокійні прогулянки та релакс",
+"points_contribution": [{"result_id": 4, "points": 3}, {"result_id": 2, "points": 2}]
+}
+]
+},
+{
+"text": "Яка особистість вам більш до вподоби?",
+"answers": [
+{
+"text": "Активна і впевнена",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Лагідна і привітна",
+"points_contribution": [{"result_id": 3, "points": 3}, {"result_id": 2, "points": 2}]
+},
+{
+"text": "Захисницька і смілива",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Вірна і розумна",
+"points_contribution": [{"result_id": 4, "points": 3}, {"result_id": 1, "points": 2}]
+}
+]
+},
+{
+"text": "Який розмір собаки ви більше за все бажаєте?",
+"answers": [
+{
+"text": "Малий",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Середній",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Великий",
+"points_contribution": [{"result_id": 3, "points": 2}, {"result_id": 2, "points": 1}]
+},
+{
+"text": "Будь-який, розмір не має значення",
+"points_contribution": [{"result_id": 4, "points": 2}, {"result_id": 1, "points": 1}]
+}
+]
+}
+],
+"results": [
+{
+"result_id": 1,
+"result_name": "Коллі",
+"description": "Вам підійде порода Коллі! Ви маєте аналітичну природу, любите розумові завдання та тренування. Коллі - це розумна, енергійна та віддана порода, яка завжди готова допомогти своїм власникам."
+},
+{
+"result_id": 2,
+"result_name": "Лабрадор ретривер",
+"description": "Вам підійде порода Лабрадор ретривер! Ви активні та спортивні, любите займатися фізичними вправами і спортивними змаганнями. Лабрадор ретривер - це лагідний, дружелюбний та енергійний собака, який буде ідеальним партнером для активного способу життя."
+},
+{
+"result_id": 3,
+"result_name": "Хаскі",
+"description": "Вам підійде порода Хаскі! Ви креативні та любите творчі завдання і інтелектуальні гри. Хаскі - це енергійна, весела та розумна порода, яка завжди готова до пригод та розваг."
+},
+{
+"result_id": 4,
+"result_name": "Шпіц",
+"description": "Вам підійде порода Шпіц! Ви спокійні та мудрі, цінуєте самотність і релакс. Шпіц - це забавний, привітний та вірний собака, який завжди буде поруч з вами і зігріватиме вас своєю присутністю."
+}
+]
+};
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionContainer = document.getElementById("question-container");
+    const resultContainer = document.getElementById("result-container");
+
+    let currentQuestionIndex = 0;
+    let points = {};
+
+    function showQuestion() {
+      quizContainer.style.display = "flex";
+      const question = quizData.questions[currentQuestionIndex];
+
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question-container");
+      questionElement.innerHTML = `
+        <p class="question-text">${question.text}</p>
+      `;
+
+      question.answers.forEach((answer, answerIndex) => {
+        const answerElement = document.createElement("button");
+        answerElement.classList.add("answer");
+        answerElement.innerText = answer.text;
+        answerElement.addEventListener("click", () => {
+          processAnswer(answerIndex);
+        });
+
+        questionElement.appendChild(answerElement);
+      });
+
+
+      questionContainer.style.display = "flex";
+      questionContainer.appendChild(questionElement);
+      resultContainer.style.display = "none";
+    }
+
+    function processAnswer(answerIndex) {
+      const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
+
+      answer.points_contribution.forEach(contribution => {
+        if (points[contribution.result_id]) {
+          points[contribution.result_id] += contribution.points;
+        } else {
+          points[contribution.result_id] = contribution.points;
+        }
+      });
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < quizData.questions.length) {
+        questionContainer.innerHTML = "";
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
+      const result = quizData.results.find(result => result.result_id == best_result);
+
+      resultContainer.innerHTML = `
+        <h2>${result.result_name}</h2>
+        <p>${result.description}</p>
+      `;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
