@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .question-container {
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    p.question-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 32px;
+      width: 100%;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result-container {
+      display: none;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #result-container h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    #result-container p {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz Application</h1>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="result-container"></div>
+  </div>
+
+  <script>
+    const quizData = {
+"quiz_name": "Який я абсурдний спортивний захід?",
+"seo_tags": "абсурдний спортивний захід, весела вікторина, спорт, розваги",
+"questions": [
+{
+"text": "Якщо б мій спортивний захід був транслювався в прямому ефірі, як би він називався?",
+"answers": [
+{
+"text": "Смішно-ризикована екстремальна гонка",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 2, "points": 1}]
+},
+{
+"text": "Безумна битва супергероїв",
+"points_contribution": [{"result_id": 3, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Хаотичне змагання малюків",
+"points_contribution": [{"result_id": 5, "points": 2}, {"result_id": 6, "points": 1}]
+}
+]
+},
+{
+"text": "Якими костюмами учасники мого заходу повинні бути одягнуті?",
+"answers": [
+{
+"text": "У великих курочках",
+"points_contribution": [{"result_id": 1, "points": 1}, {"result_id": 4, "points": 2}]
+},
+{
+"text": "У супергеройських костюмах",
+"points_contribution": [{"result_id": 2, "points": 1}, {"result_id": 5, "points": 2}]
+},
+{
+"text": "У ведмежих костюмах",
+"points_contribution": [{"result_id": 3, "points": 1}, {"result_id": 6, "points": 2}]
+}
+]
+},
+{
+"text": "Яка мета цього дивацтва?",
+"answers": [
+{
+"text": "Посміятися та розслабитися",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Продемонструвати неймовірну сили",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 4, "points": 1}]
+},
+{
+"text": "Зробити дітей щасливими",
+"points_contribution": [{"result_id": 5, "points": 2}, {"result_id": 6, "points": 1}]
+}
+]
+},
+{
+"text": "Якими перешкодами повинні стикатися учасники?",
+"answers": [
+{
+"text": "Засмічені руїни",
+"points_contribution": [{"result_id": 1, "points": 2}, {"result_id": 3, "points": 1}]
+},
+{
+"text": "Електричні струми",
+"points_contribution": [{"result_id": 2, "points": 2}, {"result_id": 5, "points": 1}]
+},
+{
+"text": "Гіркі фрукти",
+"points_contribution": [{"result_id": 4, "points": 2}, {"result_id": 6, "points": 1}]
+}
+]
+}
+],
+"results": [
+{"result_id": 1, "description": "Ти - Затятий прихильник абсурдних спортивних заходів! Любиш позмагатися в небезпечних умовах, щоб здивувати всіх навколо своїми витівками. Твій захід - смішно-ризикована екстремальна гонка!", "result_name": "смішно-ризикована екстремальна гонка"},
+{"result_id": 2, "description": "Ти - Справжній супергерой! Твій спортивний захід надихає усіх учасників битися за перемогу та продемонструвати неймовірні сили. Збирай команду героїв та розпочинай безумну битву супергероїв!", "result_name": "безумна битва супергероїв"},
+{"result_id": 3, "description": "Ти - Весела гуртівня малюків! Твій спортивний захід наповнений радістю та сміхом. Маленькі учасники змагаються у ведмежих костюмах, долають засмічені руїни та розважаються без найменшого стомлення.", "result_name": "хаотичне змагання малюків"},
+{"result_id": 4, "description": "Ти - Відчайдушний борець! Твій абсурдний спортивний захід присвячений демонстрації фізичної міці. Учасники перетинають засмічені руїни та подолають електричні струми, щоб заслужити звання справжнього героя.", "result_name": "смішно-ризикована екстремальна гонка"},
+{"result_id": 5, "description": "Ти - Дитячий сонячний промінчик! Твій спортивний захід створений для того, щоб діти були щасливими. Учасники великими курочками збирають гіркі фрукти та підкоряють електричні струми, але завжди з усмішкою на обличчі.", "result_name": "хаотичне змагання малюків"},
+{"result_id": 6, "description": "Ти - Майстер ведмежих перешкод! Твоя весела вікторина абсурдних спортивних заходів пропонує учасникам подолати електричні струми та збирати гіркі фрукти. Одягайтеся у ведмежі костюми та розсмішуйте всіх навколо!", "result_name": "хаотичне змагання малюків"}
+]
+};
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionContainer = document.getElementById("question-container");
+    const resultContainer = document.getElementById("result-container");
+
+    let currentQuestionIndex = 0;
+    let points = {};
+
+    function showQuestion() {
+      quizContainer.style.display = "flex";
+      const question = quizData.questions[currentQuestionIndex];
+
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question-container");
+      questionElement.innerHTML = `
+        <p class="question-text">${question.text}</p>
+      `;
+
+      question.answers.forEach((answer, answerIndex) => {
+        const answerElement = document.createElement("button");
+        answerElement.classList.add("answer");
+        answerElement.innerText = answer.text;
+        answerElement.addEventListener("click", () => {
+          processAnswer(answerIndex);
+        });
+
+        questionElement.appendChild(answerElement);
+      });
+
+
+      questionContainer.style.display = "flex";
+      questionContainer.appendChild(questionElement);
+      resultContainer.style.display = "none";
+    }
+
+    function processAnswer(answerIndex) {
+      const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
+
+      answer.points_contribution.forEach(contribution => {
+        if (points[contribution.result_id]) {
+          points[contribution.result_id] += contribution.points;
+        } else {
+          points[contribution.result_id] = contribution.points;
+        }
+      });
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < quizData.questions.length) {
+        questionContainer.innerHTML = "";
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
+      const result = quizData.results.find(result => result.result_id == best_result);
+
+      resultContainer.innerHTML = `
+        <h2>${result.result_name}</h2>
+        <p>${result.description}</p>
+      `;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
