@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .question-container {
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    p.question-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 32px;
+      width: 100%;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result-container {
+      display: none;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #result-container h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    #result-container p {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz Application</h1>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="result-container"></div>
+  </div>
+
+  <script>
+    const quizData = {
+"questions": [
+{
+"text": "Яка ваша улюблена форма фізичної активності?",
+"answers": [
+{
+"text": "Біг",
+"points_contribution": [{"result_id": 1, "points": 2}]
+},
+{
+"text": "Плавання",
+"points_contribution": [{"result_id": 2, "points": 2}]
+},
+{
+"text": "Гімнастика",
+"points_contribution": [{"result_id": 3, "points": 2}]
+},
+{
+"text": "Танці",
+"points_contribution": [{"result_id": 4, "points": 2}]
+}
+]
+},
+{
+"text": "Яка ваша улюблена пора року?",
+"answers": [
+{
+"text": "Весна",
+"points_contribution": [{"result_id": 1, "points": 1}]
+},
+{
+"text": "Літо",
+"points_contribution": [{"result_id": 2, "points": 1}]
+},
+{
+"text": "Осінь",
+"points_contribution": [{"result_id": 3, "points": 1}]
+},
+{
+"text": "Зима",
+"points_contribution": [{"result_id": 4, "points": 1}]
+}
+]
+},
+{
+"text": "Які ваші вподобання в стилі одягу?",
+"answers": [
+{
+"text": "Спортивний",
+"points_contribution": [{"result_id": 1, "points": 1}]
+},
+{
+"text": "Відпочинковий",
+"points_contribution": [{"result_id": 2, "points": 1}]
+},
+{
+"text": "Елегантний",
+"points_contribution": [{"result_id": 3, "points": 1}]
+},
+{
+"text": "Екстравагантний",
+"points_contribution": [{"result_id": 4, "points": 1}]
+}
+]
+},
+{
+"text": "Яке ваше ставлення до ризику?",
+"answers": [
+{
+"text": "Не боюся ризикувати",
+"points_contribution": [{"result_id": 1, "points": 2}]
+},
+{
+"text": "Уникатиму ризику",
+"points_contribution": [{"result_id": 2, "points": 2}]
+},
+{
+"text": "Підкорюю нові вершини",
+"points_contribution": [{"result_id": 3, "points": 2}]
+},
+{
+"text": "Експериментую з небезпекою",
+"points_contribution": [{"result_id": 4, "points": 2}]
+}
+]
+}
+],
+"results": [
+{
+"result_id": 1,
+"result_name": "Забавний забіг у карнавальних костюмах",
+"description": "Ви - учасник забавного забігу у карнавальних костюмах. Ваше спортивне захід - це комбінація фізичної активності та веселощів, де учасники одягнені у костюми та пробігають маршрут з посмішками на обличчі."
+},
+{
+"result_id": 2,
+"result_name": "Водний фестиваль з використанням плаваючих іграшок",
+"description": "Ви - учасник водного фестивалю з використанням плаваючих іграшок. Ваш спортивний захід - це командні змагання на воді з використанням кольорових плаваючих іграшок, які створюють атмосферу веселощів та радості."
+},
+{
+"result_id": 3,
+"result_name": "Гімнастичне шоу з мистецтвом та світловими ефектами",
+"description": "Ви - учасник гімнастичного шоу з мистецтвом та світловими ефектами. Ваш спортивний захід - це поєднання елегантної гімнастики, мистецтва та захоплюючих світлових ефектів, яке залишає глядачів у захваті."
+},
+{
+"result_id": 4,
+"result_name": "Танцювальний флешмоб з несподіваними елементами",
+"description": "Ви - учасник танцювального флешмобу з несподіваними елементами. Ваш спортивний захід - це синхронізовані танці під веселу музику з несподіваними елементами, які додають абсурдності та непередбачуваності."
+}
+]
+};
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionContainer = document.getElementById("question-container");
+    const resultContainer = document.getElementById("result-container");
+
+    let currentQuestionIndex = 0;
+    let points = {};
+
+    function showQuestion() {
+      quizContainer.style.display = "flex";
+      const question = quizData.questions[currentQuestionIndex];
+
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question-container");
+      questionElement.innerHTML = `
+        <p class="question-text">${question.text}</p>
+      `;
+
+      question.answers.forEach((answer, answerIndex) => {
+        const answerElement = document.createElement("button");
+        answerElement.classList.add("answer");
+        answerElement.innerText = answer.text;
+        answerElement.addEventListener("click", () => {
+          processAnswer(answerIndex);
+        });
+
+        questionElement.appendChild(answerElement);
+      });
+
+
+      questionContainer.style.display = "flex";
+      questionContainer.appendChild(questionElement);
+      resultContainer.style.display = "none";
+    }
+
+    function processAnswer(answerIndex) {
+      const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
+
+      answer.points_contribution.forEach(contribution => {
+        if (points[contribution.result_id]) {
+          points[contribution.result_id] += contribution.points;
+        } else {
+          points[contribution.result_id] = contribution.points;
+        }
+      });
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < quizData.questions.length) {
+        questionContainer.innerHTML = "";
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
+      const result = quizData.results.find(result => result.result_id == best_result);
+
+      resultContainer.innerHTML = `
+        <h2>${result.result_name}</h2>
+        <p>${result.description}</p>
+      `;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
