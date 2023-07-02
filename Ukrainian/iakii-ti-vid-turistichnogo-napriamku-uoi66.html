@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Пройди наш тест, щоб дізнатися, Який ти вид туристичного напрямку!">
+  <meta name="keywords" content="тест, особистість, розвага, квіз">
+  <title>Який ти вид туристичного напрямку?</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .question-container {
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    p.question-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 32px;
+      width: 100%;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result-container {
+      display: none;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #result-container h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    #result-container p {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="quiz-name">Який ти вид туристичного напрямку</h1>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="result-container"></div>
+    <a href="/">Головна</div>
+  </div>
+
+  <script>
+    const quizData = {"quiz_name": "\u042f\u043a\u0438\u0439 \u0442\u0438 \u0432\u0438\u0434 \u0442\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u043d\u043e\u0433\u043e \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0443", "results": [{"result_id": 1, "description": "\u0422\u0438 \u043b\u044e\u0431\u0438\u0448 \u0432\u0456\u0434\u043f\u043e\u0447\u0438\u0432\u0430\u0442\u0438 \u043d\u0430 \u043f\u043b\u044f\u0436\u0456, \u043d\u0430\u0441\u043e\u043b\u043e\u0434\u0436\u0443\u044e\u0447\u0438\u0441\u044c \u0441\u043e\u043d\u0446\u0435\u043c \u0456 \u043c\u043e\u0440\u0435\u043c.", "result_name": "\u041f\u043b\u044f\u0436\u043d\u0438\u0439 \u0432\u0456\u0434\u043f\u043e\u0447\u0438\u043d\u043e\u043a"}, {"result_id": 2, "description": "\u0422\u0438 \u043b\u044e\u0431\u0438\u0448 \u0430\u043a\u0442\u0438\u0432\u043d\u0438\u0439 \u0432\u0456\u0434\u043f\u043e\u0447\u0438\u043d\u043e\u043a, \u0433\u0456\u0440\u0441\u044c\u043a\u0456 \u043f\u043e\u0445\u043e\u0434\u0438 \u0442\u0430 \u043f\u0440\u0438\u0440\u043e\u0434\u0443.", "result_name": "\u0413\u0456\u0440\u0441\u044c\u043a\u0456 \u043f\u043e\u0445\u043e\u0434\u0438"}, {"result_id": 3, "description": "\u0422\u0438 \u0446\u0456\u043a\u0430\u0432\u0438\u0448\u0441\u044f \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u043e\u044e, \u0456\u0441\u0442\u043e\u0440\u0456\u0454\u044e \u0442\u0430 \u043c\u0456\u0441\u0446\u0435\u0432\u0438\u043c\u0438 \u0442\u0440\u0430\u0434\u0438\u0446\u0456\u044f\u043c\u0438.", "result_name": "\u041a\u0443\u043b\u044c\u0442\u0443\u0440\u043d\u0438\u0439 \u0442\u0443\u0440\u0438\u0437\u043c"}, {"result_id": 4, "description": "\u0422\u0438 \u043b\u044e\u0431\u0438\u0448 \u0432\u0456\u0434\u0432\u0456\u0434\u0443\u0432\u0430\u0442\u0438 \u043d\u043e\u0432\u0456 \u043c\u0456\u0441\u0446\u044f, \u0434\u043e\u0441\u043b\u0456\u0434\u0436\u0443\u0432\u0430\u0442\u0438 \u0442\u0430 \u0432\u0438\u0432\u0447\u0430\u0442\u0438 \u043d\u043e\u0432\u0456 \u0440\u0435\u0447\u0456.", "result_name": "\u0415\u043a\u0441\u043a\u0443\u0440\u0441\u0456\u0457"}], "questions": [{"text": "\u042f\u043a\u0456 \u0432\u0438\u0434\u0438 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0435\u0439 \u0442\u043e\u0431\u0456 \u043f\u043e\u0434\u043e\u0431\u0430\u044e\u0442\u044c\u0441\u044f \u043d\u0430\u0439\u0431\u0456\u043b\u044c\u0448\u0435?", "answers": [{"text": "\u041f\u043b\u0430\u0432\u0430\u043d\u043d\u044f, \u0437\u0430\u0433\u0430\u0440", "points_contribution": [{"result_id": 1, "points": 2}]}, {"text": "\u041f\u0456\u0448\u0456 \u043f\u0440\u043e\u0433\u0443\u043b\u044f\u043d\u043a\u0438, \u0432\u0435\u043b\u043e\u0441\u0438\u043f\u0435\u0434\u043d\u0456 \u043f\u043e\u0457\u0437\u0434\u043a\u0438", "points_contribution": [{"result_id": 2, "points": 2}]}, {"text": "\u0412\u0456\u0434\u0432\u0456\u0434\u0443\u0432\u0430\u043d\u043d\u044f \u043c\u0443\u0437\u0435\u0457\u0432, \u0433\u0430\u043b\u0435\u0440\u0435\u0439", "points_contribution": [{"result_id": 3, "points": 2}]}, {"text": "\u0415\u043a\u0441\u043a\u0443\u0440\u0441\u0456\u0457 \u043f\u043e \u043d\u043e\u0432\u0438\u043c \u043c\u0456\u0441\u0446\u044f\u043c", "points_contribution": [{"result_id": 4, "points": 2}]}]}, {"text": "\u042f\u043a \u0442\u0438 \u043f\u0440\u043e\u0432\u043e\u0434\u0438\u0448 \u0441\u0432\u0456\u0439 \u0432\u0456\u043b\u044c\u043d\u0438\u0439 \u0447\u0430\u0441?", "answers": [{"text": "\u041d\u0430 \u043f\u043b\u044f\u0436\u0456 \u0437 \u0434\u0440\u0443\u0437\u044f\u043c\u0438", "points_contribution": [{"result_id": 1, "points": 2}]}, {"text": "\u0412 \u0433\u043e\u0440\u0430\u0445, \u043d\u0430 \u043f\u0440\u0438\u0440\u043e\u0434\u0456", "points_contribution": [{"result_id": 2, "points": 2}]}, {"text": "\u0412\u0456\u0434\u0432\u0456\u0434\u0443\u0432\u0430\u043d\u043d\u044f \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u043d\u0438\u0445 \u0437\u0430\u0445\u043e\u0434\u0456\u0432", "points_contribution": [{"result_id": 3, "points": 2}]}, {"text": "\u0414\u043e\u0441\u043b\u0456\u0434\u0436\u0435\u043d\u043d\u044f \u043d\u043e\u0432\u0438\u0445 \u043c\u0456\u0441\u0446\u044c", "points_contribution": [{"result_id": 4, "points": 2}]}]}, {"text": "\u042f\u043a\u0456 \u043c\u0456\u0441\u0446\u044f \u0442\u0438 \u0431 \u0445\u043e\u0442\u0456\u0432(\u043b\u0430) \u0432\u0456\u0434\u0432\u0456\u0434\u0430\u0442\u0438?", "answers": [{"text": "\u0422\u0440\u043e\u043f\u0456\u0447\u043d\u0456 \u043e\u0441\u0442\u0440\u043e\u0432\u0438 \u0437 \u0431\u0456\u043b\u0438\u043c\u0438 \u043f\u043b\u044f\u0436\u0430\u043c\u0438", "points_contribution": [{"result_id": 1, "points": 2}]}, {"text": "\u0412\u0438\u0441\u043e\u043a\u0456 \u0433\u043e\u0440\u0438 \u0437 \u043d\u0435\u043f\u043e\u0432\u0442\u043e\u0440\u043d\u0438\u043c\u0438 \u043a\u0440\u0430\u0454\u0432\u0438\u0434\u0430\u043c\u0438", "points_contribution": [{"result_id": 2, "points": 2}]}, {"text": "\u0421\u0442\u0430\u0440\u043e\u0432\u0438\u043d\u043d\u0456 \u043c\u0456\u0441\u0442\u0430 \u0437\u0456 \u0441\u0432\u043e\u0454\u044e \u0456\u0441\u0442\u043e\u0440\u0456\u0454\u044e", "points_contribution": [{"result_id": 3, "points": 2}]}, {"text": "\u041d\u043e\u0432\u0456 \u043a\u0440\u0430\u0457\u043d\u0438 \u0442\u0430 \u043c\u0456\u0441\u0442\u0430, \u044f\u043a\u0456 \u0449\u0435 \u043d\u0435 \u0432\u0456\u0434\u0432\u0456\u0434\u0430\u0432(\u043b\u0430)", "points_contribution": [{"result_id": 4, "points": 2}]}]}, {"text": "\u042f\u043a\u0456 \u0444\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0456\u0457 \u0442\u0438 \u0431 \u0445\u043e\u0442\u0456\u0432(\u043b\u0430) \u043c\u0430\u0442\u0438 \u0432 \u0441\u0432\u043e\u0454\u043c\u0443 \u0430\u043b\u044c\u0431\u043e\u043c\u0456?", "answers": [{"text": "\u0424\u043e\u0442\u043e \u043d\u0430 \u043f\u043b\u044f\u0436\u0456 \u0437 \u043a\u043e\u043a\u0442\u0435\u0439\u043b\u0435\u043c \u0432 \u0440\u0443\u043a\u0430\u0445", "points_contribution": [{"result_id": 1, "points": 2}]}, {"text": "\u0424\u043e\u0442\u043e \u0437 \u0432\u0435\u0440\u0448\u0438\u043d\u0438 \u0433\u043e\u0440\u0438 \u0437 \u043d\u0435\u0439\u043c\u043e\u0432\u0456\u0440\u043d\u0438\u043c \u043a\u0440\u0430\u0454\u0432\u0438\u0434\u043e\u043c", "points_contribution": [{"result_id": 2, "points": 2}]}, {"text": "\u0424\u043e\u0442\u043e \u0431\u0456\u043b\u044f \u0432\u0456\u0434\u043e\u043c\u0438\u0445 \u043f\u0430\u043c'\u044f\u0442\u043e\u043a \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0438", "points_contribution": [{"result_id": 3, "points": 2}]}, {"text": "\u0424\u043e\u0442\u043e \u0437 \u043d\u043e\u0432\u0438\u0445 \u043c\u0456\u0441\u0446\u044c, \u044f\u043a\u0456 \u0432\u0456\u0434\u043a\u0440\u0438\u0432(\u043b\u0430)", "points_contribution": [{"result_id": 4, "points": 2}]}]}]}; 
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionContainer = document.getElementById("question-container");
+    const resultContainer = document.getElementById("result-container");
+    const quizNameContainer = document.getElementById("quiz-name");
+
+    quizNameContainer.textContent = quizData.quiz_name;
+
+    let currentQuestionIndex = 0;
+    let points = {};
+
+    function showQuestion() {
+      quizContainer.style.display = "flex";
+      const question = quizData.questions[currentQuestionIndex];
+
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question-container");
+      questionElement.innerHTML = `
+        <p class="question-text">${question.text}</p>
+      `;
+
+      question.answers.forEach((answer, answerIndex) => {
+        const answerElement = document.createElement("button");
+        answerElement.classList.add("answer");
+        answerElement.innerText = answer.text;
+        answerElement.addEventListener("click", () => {
+          processAnswer(answerIndex);
+        });
+
+        questionElement.appendChild(answerElement);
+      });
+
+
+      questionContainer.style.display = "flex";
+      questionContainer.appendChild(questionElement);
+      resultContainer.style.display = "none";
+    }
+
+    function processAnswer(answerIndex) {
+      const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
+
+      answer.points_contribution.forEach(contribution => {
+        if (points[contribution.result_id]) {
+          points[contribution.result_id] += contribution.points;
+        } else {
+          points[contribution.result_id] = contribution.points;
+        }
+      });
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < quizData.questions.length) {
+        questionContainer.innerHTML = "";
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
+      const result = quizData.results.find(result => result.result_id == best_result);
+
+      resultContainer.innerHTML = `
+        <h2>${result.result_name}</h2>
+        <p>${result.description}</p>
+      `;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
