@@ -137,14 +137,12 @@
 
     function processAnswer(answerIndex) {
       const answer = quizData.questions[currentQuestionIndex].answers[answerIndex];
-
-      answer.points_contribution.forEach(contribution => {
-        if (points[contribution.result_id]) {
-          points[contribution.result_id] += contribution.points;
-        } else {
-          points[contribution.result_id] = contribution.points;
-        }
-      });
+     
+      if (points[answerIndex]) {
+        points[answerIndex] += 1;
+      } else {
+        points[answerIndex] = 1;
+      }
 
       currentQuestionIndex++;
 
@@ -158,7 +156,7 @@
 
     function showResult() {
       const best_result = Object.keys(points).reduce(function(a, b){ return points[a] > points[b] ? a : b });
-      const result = quizData.results.find(result => result.result_id == best_result);
+      const result = quizData.results[best_result];
 
       resultContainer.innerHTML = `
         <h2>${result.result_name}</h2>
